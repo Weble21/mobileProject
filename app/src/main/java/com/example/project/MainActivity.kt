@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         val headerMessage: ImageButton = findViewById(R.id.header_message);
 
         headerMessage.setOnClickListener {
-            val intent = Intent(this, disaster_message::class.java)
+            val intent = Intent(this, Disaster_message::class.java)
             startActivity(intent);
         }
     }

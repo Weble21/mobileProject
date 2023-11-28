@@ -1,4 +1,5 @@
 package com.example.project.Models
 
-class Response {
+data class Response {
+
 }
