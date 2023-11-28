@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    app:layoutDescription="@xml/activity_main_scene"
+    android:background="@color/backBrown"
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/backBrown"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/header_home"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:src="@drawable/header_home"
+            app:backgroundTint="@color/backBrown" />
+
+        <Button
+            android:id="@+id/none"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/header_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:clickable="true"
+            android:src="@drawable/header_message"
+            app:backgroundTint="@color/backBrown"
+            app:tint="#FF8400" />
+        <ImageButton
+            android:id="@+id/header_my"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:clickable="true"
+            app:backgroundTint="@color/backBrown"
+            android:src="@drawable/header_my" />
+        <ImageButton
+            android:id="@+id/header_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center"
+            android:clickable="true"
+            app:backgroundTint="@color/backBrown"
+            app:tint="#112D3D"
+            android:src="@drawable/header_search" />
+
+
+    </LinearLayout>
+</LinearLayout>
