@@ -6,6 +6,10 @@ import android.net.NetworkCapabilities
 import android.os.Build
 
 object Constants {
+
+    const val APP_ID : String = "Za3ECPcn/ANJOKulsHlbCWy9j9ZtGW+OKht9b+YO8uc1ulfaxuSo+5eZwX3DKuwNuioWRjDGLhk+ny1HMNh7kw=="
+    const val BASE_URL : String = "http://apis.data.go.kr/"
+
     fun isNetworkAvailable(context: Context) : Boolean {
         val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as
                 ConnectivityManager
