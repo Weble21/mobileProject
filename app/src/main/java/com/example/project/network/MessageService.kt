@@ -9,6 +9,8 @@ interface MessageService {
     @GET("1741000/DisasterMsg3/getDisasterMsg1List")
     fun getMessage (
         @Query("ServiceKey") serviceKey : String,
+        @Query("pageNo") pageNo : Int,
+        @Query("numOfRows") numOfRows : Int,
         @Query("type") type : String
     ) : Call<MessageResponse>
 

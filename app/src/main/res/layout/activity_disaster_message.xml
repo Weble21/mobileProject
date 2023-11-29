@@ -9,7 +9,7 @@
 
     android:orientation="vertical"
     app:layoutDescription="@xml/activity_disaster_message_scene"
-    tools:context=".disaster_message">
+    tools:context=".Disaster_message">
 
     <LinearLayout
         android:id="@+id/header"
@@ -39,7 +39,7 @@
     </LinearLayout>
     <View
         android:layout_width="match_parent"
-        android:layout_height="2px"
+        android:layout_height="8px"
         android:background="@color/headerBackground"
         android:layout_marginBottom="21dp"
         />
@@ -51,10 +51,5 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
     </LinearLayout>
 </LinearLayout>

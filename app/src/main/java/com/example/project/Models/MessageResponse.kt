@@ -1,11 +1,9 @@
 package com.example.project.Models
 
-import java.io.Serializable
 
+import com.google.gson.annotations.SerializedName
 
-data class MessageResponse (
-    val resultCode : String,
-    val type : String,
-    val pageNo : Int,
-
-    ) : Serializable
+data class MessageResponse(
+    @SerializedName("DisasterMsg")
+    val disasterMsg: List<DisasterMsg>
+)
