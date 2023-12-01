@@ -35,11 +35,6 @@ class Disaster_message : AppCompatActivity() {
     @Override
     private fun getAPI() {
         if(Constants.isNetworkAvailable(this)) {
-            Toast.makeText(
-                this@Disaster_message,
-                "인터넷이 연결되었습니다",
-                Toast.LENGTH_SHORT
-            ).show()
 
             val retrofit : Retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
