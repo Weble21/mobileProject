@@ -2,6 +2,7 @@ package com.example.project
 
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -60,27 +61,45 @@ class Disaster_message : AppCompatActivity() {
                     if(response?.isSuccessful == true) {
                         val messageList : MessageResponse ? = response.body()
                         Log.i("Response Result", "$messageList")
-
-
                         val disasterMsgList: List<DisasterMsg>? = messageList?.disasterMsg
                         if(disasterMsgList != null && disasterMsgList.isNotEmpty()) {
                             val firstDisasterMsg: DisasterMsg? = disasterMsgList[1]
                             val rowList: List<Row>? = firstDisasterMsg?.row
                             if(rowList != null && rowList.isNotEmpty()) {
-                                val linearLayout : LinearLayout = findViewById(R.id.messageList)
-                                for(i in 1..12) {
+                                val messageListLinearLayout: LinearLayout = findViewById(R.id.messageList)
+
+                                for(i in 1 .. rowList.size) {
                                     if(i < rowList.size) {
+
                                         val currentRow: Row = rowList[i]
                                         val currentRowCreateMsg : String = currentRow.msg
 
-                                        val newTextView = TextView(this@Disaster_message)
-                                        newTextView.text = "$currentRowCreateMsg \n"
-                                        linearLayout.addView(newTextView)
+
+                                        //View 추가
+                                        val params = LinearLayout.LayoutParams(
+                                            LinearLayout.LayoutParams.WRAP_CONTENT,
+                                            LinearLayout.LayoutParams.WRAP_CONTENT
+                                        )
+                                        params.setMargins(60, 0, 60,50)
+
+
+                                        messageListLinearLayout.addView(TextView(this@Disaster_message).apply {
+                                            text = "$currentRowCreateMsg \n"
+                                            setBackgroundResource(R.drawable.rounded_background)
+                                            layoutParams = params
+                                            setPadding(30, 40, 30, 10)
+                                            gravity = Gravity.CENTER_VERTICAL
+                                        })
+
+
                                     } else {
                                         break;
                                     }
                                 }
 
+
+                                Toast.makeText(this@Disaster_message, "success", Toast.LENGTH_SHORT)
+                                    .show()
                             } else {
                                 Log.e("err", "rowList err")
                             }
@@ -89,11 +108,6 @@ class Disaster_message : AppCompatActivity() {
                         }
 
 
-
-
-
-                        Toast.makeText(this@Disaster_message, "success", Toast.LENGTH_SHORT)
-                            .show()
                     } else {
                         val rc = response?.code() ?: -1
                         val errorMessage = response.errorBody()?.string() ?: "Unknown error"
