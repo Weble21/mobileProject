@@ -21,7 +21,7 @@ data class Item(
     @SerializedName("lon")
     val lon: Double,
     @SerializedName("mt")
-    val mt: Double,
+    val mt: String,
     @SerializedName("rem")
     val rem: String,
     @SerializedName("stnId")
@@ -29,7 +29,7 @@ data class Item(
     @SerializedName("tmEqk")
     val tmEqk: Long,
     @SerializedName("tmFc")
-    val tmFc: Long,
+    val tmFc: String,
     @SerializedName("tmSeq")
     val tmSeq: Int
 )

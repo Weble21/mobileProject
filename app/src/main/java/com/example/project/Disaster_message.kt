@@ -57,10 +57,10 @@ class Disaster_message : AppCompatActivity() {
                         val messageList : MessageResponse ? = response.body()
                         Log.i("Response Result", "$messageList")
                         val disasterMsgList: List<DisasterMsg>? = messageList?.disasterMsg
-                        if(disasterMsgList != null && disasterMsgList.isNotEmpty()) {
+                        if(!disasterMsgList.isNullOrEmpty()) {
                             val firstDisasterMsg: DisasterMsg? = disasterMsgList[1]
                             val rowList: List<Row>? = firstDisasterMsg?.row
-                            if(rowList != null && rowList.isNotEmpty()) {
+                            if(!rowList.isNullOrEmpty()) {
                                 val messageListLinearLayout: LinearLayout = findViewById(R.id.messageList)
 
                                 for(i in 1 .. rowList.size) {
@@ -69,15 +69,12 @@ class Disaster_message : AppCompatActivity() {
                                         val currentRow: Row = rowList[i]
                                         val currentRowCreateMsg : String = currentRow.msg
 
-
                                         //View 추가
                                         val params = LinearLayout.LayoutParams(
                                             LinearLayout.LayoutParams.WRAP_CONTENT,
                                             LinearLayout.LayoutParams.WRAP_CONTENT
                                         )
                                         params.setMargins(60, 0, 60,50)
-
-
                                         messageListLinearLayout.addView(TextView(this@Disaster_message).apply {
                                             text = "$currentRowCreateMsg \n"
                                             setBackgroundResource(R.drawable.rounded_background)
@@ -93,8 +90,6 @@ class Disaster_message : AppCompatActivity() {
                                 }
 
 
-                                Toast.makeText(this@Disaster_message, "success", Toast.LENGTH_SHORT)
-                                    .show()
                             } else {
                                 Log.e("err", "rowList err")
                             }
@@ -109,11 +104,26 @@ class Disaster_message : AppCompatActivity() {
                         when(rc) {
                             400 -> {
                                 Log.e("Error 400", "Bad Connection : $errorMessage")
+                                Toast.makeText(
+                                    this@Disaster_message,
+                                    "Error!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             }
                             404 -> {
                                 Log.e("Error 404", "Not Found : $errorMessage")
+                                Toast.makeText(
+                                    this@Disaster_message,
+                                    "Error!",
+                                    Toast.LENGTH_SHORT
+                                ).show()
                             } else -> {
                                 Log.e("Error", "Generic Error : $errorMessage")
+                            Toast.makeText(
+                                this@Disaster_message,
+                                "Error!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                             }
                         }
                     }
@@ -121,6 +131,11 @@ class Disaster_message : AppCompatActivity() {
 
                 override fun onFailure(call: Call<MessageResponse>, t: Throwable) {
                     Log.e("Errrrrrrr", t!!.message.toString())
+                    Toast.makeText(
+                        this@Disaster_message,
+                        "Error!",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             })
