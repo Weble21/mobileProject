@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Build.VERSION_CODES.O
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
@@ -13,7 +14,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.project.Models.Earthquake.EarthquakeResponse
 import com.example.project.Models.Earthquake.Item
+import com.example.project.Models.shelter.shelterResponse
 import com.example.project.network.EarthquakeService
+import com.example.project.network.ShelterService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,7 +46,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent);
         }
 
-        getAPI();
+        getEarthquakeAPI();
     }
 
     //현재날짜 받아오기
@@ -87,7 +90,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     @Override
-    private fun getAPI() {
+    private fun getEarthquakeAPI() {
         if(Constants.isNetworkAvailable(this)) {
             Toast.makeText(
                 this@MainActivity,
@@ -134,7 +137,9 @@ class MainActivity : AppCompatActivity() {
                             val loc: TextView = findViewById(R.id.loc)
                             val mt: TextView = findViewById(R.id.mt)
                             val inT: TextView = findViewById(R.id.inT)
-                            val Msg: TextView = findViewById(R.id.Msg)
+                            val msg: TextView = findViewById(R.id.msg)
+                            val messageTitle: TextView = findViewById(R.id.messageTitle)
+                            val shelterTitle: TextView = findViewById(R.id.shelterTitle)
 
                             for(i in 0 until  itemList.size) {
                                 val currentItem: Item = itemList[i]
@@ -147,20 +152,52 @@ class MainActivity : AppCompatActivity() {
                                 val useItem: Item = itemList[useIdx]
                                 val imgUrl: String = useItem.img
                                 val formattedtmFc = convertDateTimeFormat(useItem.tmFc)
+
+                                imgMap.scaleType = ImageView.ScaleType.MATRIX
                                 Glide.with(this@MainActivity).load(imgUrl).into(imgMap)
-                                tmFc.text = "지진 발표 시간 : " + formattedtmFc + "\n"
-                                loc.text = "진앙 위치 : " + useItem.loc + "\n"
-                                mt.text = "규모 : " + useItem.mt + "\n"
-                                inT.text = "진도 : " + useItem.inT + "\n"
-                                Msg.text = useItem.rem
+                                tmFc.text = "지진 발표 시간 : " + formattedtmFc
+                                loc.text = "진앙 위치 : " + useItem.loc
+                                mt.text = "규모 : " + useItem.mt
+                                inT.text = "진도 : " + useItem.inT
+                                msg.text = " " + useItem.rem
+                                msg.visibility = View.VISIBLE
+                                messageTitle.visibility = View.VISIBLE
+                                shelterTitle.visibility = View.VISIBLE
                                 Log.i("item", "$useItem")
+                            } else {
+                                imgMap.setImageResource(R.drawable.no_event)
+                                tmFc.visibility = View.INVISIBLE
+                                loc.visibility = View.INVISIBLE
+                                mt.visibility = View.INVISIBLE
+                                inT.visibility = View.INVISIBLE
+                                msg.visibility = View.INVISIBLE
                             }
                         }
+
+
                     }
+                    //대피소 api 불러오기
+                    val retrofitShelter : Retrofit = Retrofit.Builder()
+                        .baseUrl(Constants.BASE_URL)
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build()
+
+                    val serviceShelter : ShelterService = retrofitShelter
+                        .create<ShelterService>(ShelterService::class.java)
+
+                    val listCallShelter : Call<shelterResponse> = serviceShelter.getMessage(
+                        Constants.APP_ID, 1, 10, "json"
+                    )
+
                 }
 
                 override fun onFailure(call: Call<EarthquakeResponse>, t: Throwable) {
                     Log.e("err", "errrr")
+                    Toast.makeText(
+                        this@MainActivity,
+                        "정보를 불러올 수 없습니다",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
 
@@ -174,4 +211,6 @@ class MainActivity : AppCompatActivity() {
             ).show()
         }
     }
+
+
 }
