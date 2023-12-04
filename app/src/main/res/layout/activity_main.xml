@@ -87,6 +87,16 @@
             android:text="  지진 발생 정보📢"
             android:textSize="20sp" />
 
+        <TextView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textStyle="italic"
+            android:text="      Loading..."
+            android:visibility="visible"
+            android:textSize="20sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,6 +112,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -111,7 +122,7 @@
                     android:layout_marginTop="7dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:text="Loading..." />
+                    />
 
                 <TextView
                     android:id="@+id/loc"
@@ -120,7 +131,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp"
-                    android:text="Loading..." />
+                    />
 
                 <TextView
                     android:id="@+id/mt"
@@ -137,7 +148,7 @@
                     android:layout_marginTop="5dp"
                     android:layout_marginLeft="7dp"
                     android:layout_marginRight="7dp" />
-            </LinearLayout>
+
 
             <TextView
                 android:id="@+id/messageTitle"
@@ -150,7 +161,7 @@
                 android:text="참고사항📌"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                android:visibility="invisible" />
+                />
 
             <TextView
                 android:id="@+id/msg"
@@ -159,23 +170,261 @@
                 android:layout_marginLeft="7dp"
                 android:layout_marginTop="2dp"
                 android:layout_marginRight="7dp"
-                android:visibility="invisible"
                 android:background="@drawable/rounded_background_2"
                 android:padding="5dp" />
-
+            </LinearLayout>
         </LinearLayout>
 
         <TextView
             android:id="@+id/shelterTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:text="지진 발생 지점과 가까운 대피소🗺" />
+            android:layout_marginLeft="7dp"
+            android:layout_marginTop="21dp"
+            android:layout_marginRight="7dp"
+            android:text="지진 발생시 행동요령⛑"
+            android:textColor="#FF4C14"
+            android:textSize="21sp"
+            android:textStyle="bold"
+            android:visibility="invisible" />
 
         <LinearLayout
+            android:id="@+id/tips_normal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/atNormalList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="2dp"
+                android:text="평상시 지진 대비"
+                android:textStyle="italic|bold" />
+
+            <TextView
+                android:id="@+id/atNormal_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="1. 집 안에서의 안전을 미리 확보하세요"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atNormal_1_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶탁자 아래와 같이 집 안에서 대피할 수 있는 안전한 대피 공간을 미리 파악해 둡니다.\n
+▶유리창이나 넘어지기 쉬운 가구 주변 등 위험한 위치를 확인해 두고 지진 발생 시 가까이 가지 않습니다.\n
+▶깨진 유리 등에 다치지 않도록 두꺼운 실내화를 준비해 둡니다.\n
+▶화재를 일으킬 수 있는 난로나 위험물은 주의하여 관리합니다.\n" />
+
+            <TextView
+                android:id="@+id/atNormal_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="2. 집 안에서 떨어지기 쉬운 물건을 고정해 놓으세요"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atNormal_2_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶가구나 가전제품이 흔들릴 때 넘어지지 않도록 고정해 둡니다.\n
+▶텔레비전, 꽃병 등 떨어질 수 있는 물건은 높은 곳에 두지 않습니다.\n
+▶그릇장 안의 물건들이 쏟아지지 않도록 문을 고정해 둡니다.\n
+▶창문 등의 유리 부분은 필름을 붙여 유리가 파손되지 않도록 합니다.\n" />
+
+            <TextView
+                android:id="@+id/atNormal_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="3. 집을 안전하게 관리하세요"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atNormal_3_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶가스 및 전기를 미리 점검합니다.\n
+▶건물이나 담장은 수시로 점검하고, 위험한 부분은 안전하게 수리합니다.\n
+▶건물의 균열을 발견하면 전문가에게 문의하여 보수하고 보강합니다.\n" />
+
+            <TextView
+                android:id="@+id/atNormal_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="4. 평상시 가족회의를 통해 위급한 상황에 대비하세요"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atNormal_4_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶가스 및 전기를 차단하는 방법을 알아 둡니다.\n
+▶머물고 있는 곳 주위의 넓은 공간 등 대피할 수 있는 장소를 알아 둡니다.\n
+▶비상시 가족과 만날 곳과 연락할 방법을 정해 둡니다.\n
+▶응급처치하는 방법을 반복적으로 훈련하여 익혀 둡니다.\n" />
+
+            <TextView
+                android:id="@+id/atNormal_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="5. 평소 비상용품을 잘 준비해 두세요"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atNormal_5_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶지진에 대비하여 비상용품을 준비해 두고, 보관장소와 사용방법을 알아 둡니다.\n
+▶비상식품, 구급약품, 생활용품, 라디오, 보조배터리, 건전지 등을 준비하세요\n
+▶지진 발생 시 화재가 발생할 수 있으니 소화기를 준비해 두고, 사용방법을 알아 둡니다.\n" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/tips_earth"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/atEarth"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:text="지진 발생 시 대피 요령"
+                android:textStyle="italic|bold" />
+
+            <TextView
+                android:id="@+id/atEarth_1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="1. 지진으로 흔들릴 때는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_1_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶지진으로 흔들리는 동안은 탁자 아래로 들어가 몸을 보호하고, 탁자 다리를 꼭 잡습니다." />
+
+            <TextView
+                android:id="@+id/atEarth_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="2. 흔들림이 멈췄을 때는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_2_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶흔들림이 멈추면 전기와 가스를 차단하고,문을 열어 출구를 확보합니다." />
+
+            <TextView
+                android:id="@+id/atEarth_3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="3. 건물 밖으로 나갈 때는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_3_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶건물 밖으로 나갈 때에는 계단을 이용하여 신속하게 이동합니다. (엘리베이터 사용 금지)\n
+※ 엘리베이터 안에 있을 경우에는 모든 층의 버튼을 눌러 먼저 열리는 층에서 내립니다." />
+
+            <TextView
+                android:id="@+id/atEarth_4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="4. 건물 밖으로 나왔을 때는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_4_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶건물 밖에서는 가방이나 손으로 머리를 보호하며, 건물과 거리를 두고 주위를 살피며 대피합니다." />
+
+            <TextView
+                android:id="@+id/atEarth_5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="5. 대피 장소를 찾을 때는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_5_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶떨어지는 물건에 유의하며 신속하게 운동장이나 공원 등 넓은 공간으로 대피합니다.(차량 이용 금지)" />
+
+            <TextView
+                android:id="@+id/atEarth_6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="5dp"
+                android:text="6. 대피 장소에 도착한 후에는?"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/atEarth_6_List"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="7dp"
+                android:layout_marginRight="7dp"
+                android:text=" ▶라디오나 공공기관의 안내 방송 등 올바른 정보에 따라 행동합니다." />
+
+
+
+        </LinearLayout>
 
     </LinearLayout>
     </ScrollView>

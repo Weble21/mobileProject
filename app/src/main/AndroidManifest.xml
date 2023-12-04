@@ -24,6 +24,14 @@
         </activity>
 
         <activity
+            android:name=".Map_myLocation"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:label="Add Map_myLocation"
+            android:theme="@style/Theme.Project" >
+        </activity>
+
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

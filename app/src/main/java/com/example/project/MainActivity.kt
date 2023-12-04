@@ -8,15 +8,14 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.project.Models.Earthquake.EarthquakeResponse
 import com.example.project.Models.Earthquake.Item
-import com.example.project.Models.shelter.shelterResponse
 import com.example.project.network.EarthquakeService
-import com.example.project.network.ShelterService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,10 +38,15 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val headerMessage: ImageButton = findViewById(R.id.header_message);
-
+        val headerMessage: ImageButton = findViewById(R.id.header_message)
         headerMessage.setOnClickListener {
             val intent = Intent(this, Disaster_message::class.java)
+            startActivity(intent);
+        }
+
+        val headerMy: ImageButton = findViewById(R.id.header_my)
+        headerMy.setOnClickListener {
+            val intent = Intent(this, Map_myLocation::class.java)
             startActivity(intent);
         }
 
@@ -116,12 +120,14 @@ class MainActivity : AppCompatActivity() {
                 Constants.APP_ID, 1, 10, "JSON", yesterDate, currentDate
             )
             listCall.enqueue(object  : Callback<EarthquakeResponse> {
+                val loading:TextView = findViewById(R.id.loading)
                 override fun onResponse(
                     call: Call<EarthquakeResponse>,
                     response: Response<EarthquakeResponse>
                 ) {
                     Log.i("Response", response.toString())
                     if(response?.isSuccessful == true) {
+                        loading.visibility = View.GONE
                         val allResult : EarthquakeResponse ? = response.body()
                         Log.i("Response Result", "$allResult")
                         val resultResponse = allResult?.response
@@ -140,6 +146,9 @@ class MainActivity : AppCompatActivity() {
                             val msg: TextView = findViewById(R.id.msg)
                             val messageTitle: TextView = findViewById(R.id.messageTitle)
                             val shelterTitle: TextView = findViewById(R.id.shelterTitle)
+                            val tipsNormal:LinearLayout = findViewById(R.id.tips_normal)
+                            val tipsEarth:LinearLayout = findViewById(R.id.tips_earth)
+
 
                             for(i in 0 until  itemList.size) {
                                 val currentItem: Item = itemList[i]
@@ -148,6 +157,7 @@ class MainActivity : AppCompatActivity() {
                                     break;
                                 }
                             }
+                            //지진 발생 여부에 따른 결과
                             if(useIdx != -1) {
                                 val useItem: Item = itemList[useIdx]
                                 val imgUrl: String = useItem.img
@@ -163,6 +173,8 @@ class MainActivity : AppCompatActivity() {
                                 msg.visibility = View.VISIBLE
                                 messageTitle.visibility = View.VISIBLE
                                 shelterTitle.visibility = View.VISIBLE
+                                tipsEarth.visibility = View.VISIBLE
+
                                 Log.i("item", "$useItem")
                             } else {
                                 imgMap.setImageResource(R.drawable.no_event)
@@ -171,27 +183,25 @@ class MainActivity : AppCompatActivity() {
                                 mt.visibility = View.INVISIBLE
                                 inT.visibility = View.INVISIBLE
                                 msg.visibility = View.INVISIBLE
+                                tipsNormal.visibility = View.VISIBLE
                             }
+                        } else {
+                            loading.text = "에러 발생! 불러온 정보가 없습니다!"
+                            Toast.makeText(
+                                this@MainActivity,
+                                "정보가 없습니다!",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
 
 
                     }
-                    //대피소 api 불러오기
-                    val retrofitShelter : Retrofit = Retrofit.Builder()
-                        .baseUrl(Constants.BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
-                        .build()
 
-                    val serviceShelter : ShelterService = retrofitShelter
-                        .create<ShelterService>(ShelterService::class.java)
-
-                    val listCallShelter : Call<shelterResponse> = serviceShelter.getMessage(
-                        Constants.APP_ID, 1, 10, "json"
-                    )
 
                 }
 
                 override fun onFailure(call: Call<EarthquakeResponse>, t: Throwable) {
+                    loading.text = "에러 발생! 정보를 불러올 수 없습니다!"
                     Log.e("err", "errrr")
                     Toast.makeText(
                         this@MainActivity,
