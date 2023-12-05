@@ -72,7 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         val currentDate: LocalDate = LocalDate.now()
-        val yesterDate: LocalDate = currentDate.minusDays(3)
+        val yesterDate: LocalDate = currentDate.minusDays(2)
         val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd")
 
         return yesterDate.format(formatter).replace("-","").toInt()
@@ -144,6 +144,7 @@ class MainActivity : AppCompatActivity() {
                             val mt: TextView = findViewById(R.id.mt)
                             val inT: TextView = findViewById(R.id.inT)
                             val msg: TextView = findViewById(R.id.msg)
+                            val earthquakeList: LinearLayout = findViewById(R.id.earthquakeList)
                             val messageTitle: TextView = findViewById(R.id.messageTitle)
                             val shelterTitle: TextView = findViewById(R.id.shelterTitle)
                             val tipsNormal:LinearLayout = findViewById(R.id.tips_normal)
@@ -163,6 +164,7 @@ class MainActivity : AppCompatActivity() {
                                 val imgUrl: String = useItem.img
                                 val formattedtmFc = convertDateTimeFormat(useItem.tmFc)
 
+                                earthquakeList.visibility = View.VISIBLE
                                 imgMap.scaleType = ImageView.ScaleType.MATRIX
                                 Glide.with(this@MainActivity).load(imgUrl).into(imgMap)
                                 tmFc.text = "지진 발표 시간 : " + formattedtmFc

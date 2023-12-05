@@ -110,6 +110,7 @@
                 android:scaleType="centerCrop" />
 
             <LinearLayout
+                android:id="@+id/earthquakeList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:visibility="gone"
@@ -200,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="4dp"
                 android:text="평상시 지진 대비"
                 android:textStyle="italic|bold" />
 
@@ -316,6 +317,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
+                android:layout_marginTop="4dp"
                 android:text="지진 발생 시 대피 요령"
                 android:textStyle="italic|bold" />
 

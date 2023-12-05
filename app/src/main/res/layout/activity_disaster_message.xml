@@ -33,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
-            android:text="긴급재난문자📢"
+            android:text="긴급재난문자🔔"
             android:textSize="34sp" />
 
     </LinearLayout>

@@ -7,9 +7,42 @@
     android:orientation="vertical"
     app:layoutDescription="@xml/activity_map_mylocation_scene">
 
-    <Button
-        android:id="@+id/backBtn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="backButton" />
+        android:gravity="center_vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp"
+        android:layout_marginBottom="5dp" >
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:src="@drawable/backbtn"
+            app:backgroundTint="@color/backBrown" />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:text="가까운 대피소🧭"
+            android:textSize="34sp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8px"
+        android:background="@color/ic_launcher_start_background"
+        android:layout_marginBottom="21dp"
+        />
+
+    <com.google.android.gms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
 </LinearLayout>
