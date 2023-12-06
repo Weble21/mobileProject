@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/backBrown"
     app:layoutDescription="@xml/activity_map_mylocation_scene">
 
     <LinearLayout
@@ -21,9 +22,10 @@
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:src="@drawable/backbtn"
-            app:backgroundTint="@color/backBrown" />
+            android:background="@color/backBrown"
+            android:layout_marginLeft="16dp"
+             />
 
         <TextView
             android:id="@+id/messageText"
@@ -38,13 +40,13 @@
         android:layout_width="match_parent"
         android:layout_height="8px"
         android:background="@color/ic_launcher_start_background"
-        android:layout_marginBottom="21dp"
+        android:layout_marginBottom="6dp"
         />
         
     <com.naver.maps.map.MapView
         android:id="@+id/naverMap"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="300dp" />
 
 
 </LinearLayout>

@@ -24,9 +24,9 @@
             android:id="@+id/backBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
             android:src="@drawable/backbtn"
-            app:backgroundTint="@color/backBrown" />
+            android:layout_marginLeft="16dp"
+            android:background="@color/backBrown" />
 
         <TextView
             android:id="@+id/messageText"
