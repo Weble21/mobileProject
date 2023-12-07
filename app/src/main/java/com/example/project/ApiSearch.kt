@@ -23,11 +23,11 @@ class ApiSearch {
     val listLon = mutableListOf<Int>()
     val listLat = mutableListOf<Int>()
 
-    fun main() {
+    fun main(currentLocation: String) {
 
         var text: String? = null
         try {
-            text = URLEncoder.encode("대피시설", "UTF-8")
+            text = URLEncoder.encode("${currentLocation} 대피시설", "UTF-8")
         } catch (e: UnsupportedEncodingException) {
             throw RuntimeException("검색어 인코딩 실패", e)
         }
@@ -140,4 +140,6 @@ class ApiSearch {
             emptyList<String>()
         }
     }
+
+
 }

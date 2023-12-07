@@ -2,9 +2,14 @@ package com.example.project
 
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Typeface
 import android.location.Location
 import android.os.Bundle
 import android.os.Looper
+import android.text.Spannable
+import android.text.SpannableString
+import android.text.style.RelativeSizeSpan
+import android.text.style.StyleSpan
 import android.util.Log
 import android.view.Gravity
 import android.widget.ImageButton
@@ -34,55 +39,82 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
     private var currentLatitude: Double = 0.0
     private var currentLongitude: Double = 0.0
 
-    var permissions = arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION,
-        android.Manifest.permission.ACCESS_COARSE_LOCATION)
+    var permissions = arrayOf(
+        android.Manifest.permission.ACCESS_FINE_LOCATION,
+        android.Manifest.permission.ACCESS_COARSE_LOCATION
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map_mylocation)
 
-        val backBtn : ImageButton = findViewById(R.id.backBtn)
+        val backBtn: ImageButton = findViewById(R.id.backBtn)
         backBtn.setOnClickListener {
-            onBackPressed();
+            onBackPressed()
         }
+
         if (isPermitted()) {
             startProcess()
         } else {
             ActivityCompat.requestPermissions(this, permissions, permission_request)
         }
+
         val thread = Thread {
-            var apiSearch = ApiSearch()
-            apiSearch.main()
+            val apiSearch = ApiSearch()
+            apiSearch.main("노원구 공릉동")
             runOnUiThread {
-                val resultTextView: TextView = findViewById(R.id.resultTextView)
-                val listLayout:LinearLayout = findViewById(R.id.listLayout)
+                val listLayout: LinearLayout = findViewById(R.id.listLayout)
                 val params = LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT
                 )
                 params.setMargins(60, 0, 60, 50)
-                for(idx in 0 .. 3) {
-                    listLayout.addView(TextView(this@Map_myLocation).apply {
-                        text = buildString {
-                            append("${apiSearch.listTitle[idx]}\n")
-                            append("${apiSearch.listAdd[idx]}\n")
-                            append("${apiSearch.listLoadAdd[idx]}\n")
-                            append("${apiSearch.listCategory[idx]}\n")
-                        }
+                for (idx in 0..3) {
+                    val textView = TextView(this@Map_myLocation).apply {
                         setBackgroundResource(R.drawable.rounded_background)
                         layoutParams = params
                         setPadding(30, 40, 30, 10)
                         gravity = Gravity.CENTER_VERTICAL
-                    })
+                    }
 
+                    val text = buildString {
+                        append(" ${apiSearch.listTitle[idx]}\n")
+                        append("${apiSearch.listAdd[idx]}\n")
+                        append("${apiSearch.listLoadAdd[idx]}\n")
+                        append("${apiSearch.listCategory[idx]}\n")
+                    }
+
+                    val spannableString = SpannableString(text)
+
+                    val newLineIndex = text.indexOf('\n')
+                    if (newLineIndex != -1) {
+                        spannableString.setSpan(
+                            StyleSpan(Typeface.BOLD),
+                            0,
+                            newLineIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                        spannableString.setSpan(
+                            RelativeSizeSpan(1.2f),
+                            0,
+                            newLineIndex,
+                            Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                        )
+                    }
+
+                    textView.text = spannableString
+
+                    listLayout.addView(textView)
                 }
             }
         }
         thread.start()
     }
+
     fun isPermitted(): Boolean {
-        for(perm in permissions) {
-            if(ContextCompat.checkSelfPermission(this, perm)
-                != PackageManager.PERMISSION_GRANTED) {
+        for (perm in permissions) {
+            if (ContextCompat.checkSelfPermission(this, perm)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
                 return false
             }
         }
@@ -113,6 +145,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         //내 위치 가져오기
         setUpdateLocationListner()
     }
+
     //gps 자동으로 받기
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationCallback: LocationCallback
@@ -129,7 +162,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
-                for((i, location) in locationResult.locations.withIndex()) {
+                for ((i, location) in locationResult.locations.withIndex()) {
                     Log.d("location: ", "${location.latitude}, ${location.longitude}")
                     setLastLocation(location)
                 }
@@ -161,7 +194,4 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         naverMap.minZoom = 7.0
 
     }
-
-
-
 }
