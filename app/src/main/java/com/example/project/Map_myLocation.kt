@@ -6,7 +6,10 @@ import android.location.Location
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.view.Gravity
 import android.widget.ImageButton
+import android.widget.LinearLayout
+import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -46,6 +49,35 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         } else {
             ActivityCompat.requestPermissions(this, permissions, permission_request)
         }
+        val thread = Thread {
+            var apiSearch = ApiSearch()
+            apiSearch.main()
+            runOnUiThread {
+                val resultTextView: TextView = findViewById(R.id.resultTextView)
+                val listLayout:LinearLayout = findViewById(R.id.listLayout)
+                val params = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+                params.setMargins(60, 0, 60, 50)
+                for(idx in 0 .. 3) {
+                    listLayout.addView(TextView(this@Map_myLocation).apply {
+                        text = buildString {
+                            append("${apiSearch.listTitle[idx]}\n")
+                            append("${apiSearch.listAdd[idx]}\n")
+                            append("${apiSearch.listLoadAdd[idx]}\n")
+                            append("${apiSearch.listCategory[idx]}\n")
+                        }
+                        setBackgroundResource(R.drawable.rounded_background)
+                        layoutParams = params
+                        setPadding(30, 40, 30, 10)
+                        gravity = Gravity.CENTER_VERTICAL
+                    })
+
+                }
+            }
+        }
+        thread.start()
     }
     fun isPermitted(): Boolean {
         for(perm in permissions) {
@@ -68,7 +100,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
 
     override fun onMapReady(naverMap: NaverMap) {
         val cameraPosition = CameraPosition(
-            LatLng(37.011, 127.011),  // 위치 지정
+            LatLng(37.6291, 126.0813),  // 위치 지정
             17.5 // 줌 레벨
         )
 
@@ -98,7 +130,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
             override fun onLocationResult(locationResult: LocationResult) {
                 locationResult ?: return
                 for((i, location) in locationResult.locations.withIndex()) {
-                    Log.d("location: ", "${location.latitude}, ${location.latitude}")
+                    Log.d("location: ", "${location.latitude}, ${location.longitude}")
                     setLastLocation(location)
                 }
             }
@@ -129,5 +161,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         naverMap.minZoom = 7.0
 
     }
+
+
 
 }
