@@ -185,6 +185,7 @@ class MainActivity : AppCompatActivity() {
                                 mt.visibility = View.INVISIBLE
                                 inT.visibility = View.INVISIBLE
                                 msg.visibility = View.INVISIBLE
+                                messageTitle.visibility = View.VISIBLE
                                 tipsNormal.visibility = View.VISIBLE
                             }
                         } else {

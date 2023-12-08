@@ -27,7 +27,7 @@ class ApiSearch {
 
         var text: String? = null
         try {
-            text = URLEncoder.encode("${currentLocation} 대피시설", "UTF-8")
+            text = URLEncoder.encode("${currentLocation} 대피장소", "UTF-8")
         } catch (e: UnsupportedEncodingException) {
             throw RuntimeException("검색어 인코딩 실패", e)
         }
