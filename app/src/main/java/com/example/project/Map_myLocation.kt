@@ -67,17 +67,90 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
 
         if (isPermitted()) {
             startProcess()
-            
-            val thread = Thread {
-                val apiSearch = ApiSearch()
+        } else {
+            ActivityCompat.requestPermissions(this, permissions, permission_request)
+        }
+    }
+
+    fun isPermitted(): Boolean {
+        for (perm in permissions) {
+            if (ContextCompat.checkSelfPermission(this, perm)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                return false
+            }
+        }
+        return true
+    }
+
+    fun startProcess() {
+        val fm = supportFragmentManager
+        val mapFragment = fm.findFragmentById(R.id.naverMap) as MapFragment?
+            ?: MapFragment.newInstance().also {
+                fm.beginTransaction().add(R.id.naverMap, it).commit()
+            }
+        mapFragment.getMapAsync(this)
+    }
+
+
+    private fun reverseGeoCoding(
+        coords: String,
+        output: String,
+        clientId: String,
+        clientSecret: String
+    ) {
+        val gson = GsonBuilder().setLenient().create()
+
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://naveropenapi.apigw.ntruss.com/")
+            .addConverterFactory(GsonConverterFactory.create(gson))
+            .build()
+
+        val service = retrofit.create(ApiService::class.java)
+        val call = service.makeRequest(coords, output, clientId, clientSecret)
+
+        call.enqueue(object : retrofit2.Callback<ApiResponse> {
+            override fun onResponse(
+                call: Call<ApiResponse>,
+                response: retrofit2.Response<ApiResponse>
+            ) {
+                if (response.isSuccessful) {
+                    val apiResponse = response.body()
+                    // apiResponse를 처리하는 코드 작성
+                    if (apiResponse != null) {
+                        currentLocation = "${apiResponse.results[0].region.area1.name} " +
+                                "${apiResponse.results[0].region.area2.name} " +
+                                "${apiResponse.results[0].region.area3.name}"
+                        Log.i("행정동", "${currentLocation}")
+                    }
+                } else {
+                    Log.e("HTTP Error", "HTTP error code: ${response.code()}")
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
+                Log.e("Request Failure", "Error making HTTP request", t)
+            }
+        })
+        updateUI()
+    }
+
+    fun updateUI() {
+        val thread = Thread {
+            val apiSearch = ApiSearch()
+            if (currentLocation == "한국") {
+                Log.i("currentLocationIsNull", "currentLocation has no result")
+            } else {
                 apiSearch.main("${currentLocation}")
+
                 runOnUiThread {
                     val listLayout: LinearLayout = findViewById(R.id.listLayout)
+                    listLayout.removeAllViews()
                     val params = LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     )
-                    params.setMargins(60, 0, 60, 50)
+                    params.setMargins(60, 10, 60, 40)
                     for (idx in 0..4) {
                         val textView = TextView(this@Map_myLocation).apply {
                             setBackgroundResource(R.drawable.rounded_background)
@@ -118,31 +191,9 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
                 }
 
             }
-            thread.start()
-
-        } else {
-            ActivityCompat.requestPermissions(this, permissions, permission_request)
         }
-    }
+        thread.start()
 
-    fun isPermitted(): Boolean {
-        for (perm in permissions) {
-            if (ContextCompat.checkSelfPermission(this, perm)
-                != PackageManager.PERMISSION_GRANTED
-            ) {
-                return false
-            }
-        }
-        return true
-    }
-
-    fun startProcess() {
-        val fm = supportFragmentManager
-        val mapFragment = fm.findFragmentById(R.id.naverMap) as MapFragment?
-            ?: MapFragment.newInstance().also {
-                fm.beginTransaction().add(R.id.naverMap, it).commit()
-            }
-        mapFragment.getMapAsync(this)
     }
 
     override fun onMapReady(naverMap: NaverMap) {
@@ -166,14 +217,13 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
     lateinit var fusedLocationProviderClient: FusedLocationProviderClient
     lateinit var locationCallback: LocationCallback
 
-
     @SuppressLint("MissingPermission")
     //좌표계 갱신
     fun setUpdateLocationListner() {
         val locationRequest = LocationRequest.create()
         locationRequest.run {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 5000
+            interval = 2000
         }
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -190,6 +240,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
             Looper.myLooper()
         )
     }
+
 
     fun setLastLocation(location: Location) {
         currentLatitude = location.latitude
@@ -215,9 +266,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
             "${clientID}",
             "${clientSecret}"
         )
-
     }
-
 
     interface ApiService {
         @GET("map-reversegeocode/v2/gc")
@@ -238,7 +287,6 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         val region: Region
     )
 
-
     data class Region(
         val area0: Area,
         val area1: Area,
@@ -249,45 +297,5 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
     data class Area(
         val name: String
     )
-
-    private fun reverseGeoCoding(
-        coords: String,
-        output: String,
-        clientId: String,
-        clientSecret: String
-    ) {
-        val gson = GsonBuilder().setLenient().create()
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://naveropenapi.apigw.ntruss.com/")
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .build()
-
-        val service = retrofit.create(ApiService::class.java)
-        val call = service.makeRequest(coords, output, clientId, clientSecret)
-
-        call.enqueue(object : retrofit2.Callback<ApiResponse> {
-            override fun onResponse(call: Call<ApiResponse>, response: retrofit2.Response<ApiResponse>) {
-                if (response.isSuccessful) {
-                    val apiResponse = response.body()
-                    // apiResponse를 처리하는 코드 작성
-                    if (apiResponse != null) {
-                        currentLocation = "${apiResponse.results[0].region.area1.name} " +
-                                "${apiResponse.results[0].region.area2.name} " +
-                                "${apiResponse.results[0].region.area3.name}"
-                        Log.i("행정동", "${currentLocation}")
-                    }
-                } else {
-                    Log.e("HTTP Error", "HTTP error code: ${response.code()}")
-                }
-            }
-
-            override fun onFailure(call: Call<ApiResponse>, t: Throwable) {
-                Log.e("Request Failure", "Error making HTTP request", t)
-            }
-        })
-    }
-
-
 
 }
