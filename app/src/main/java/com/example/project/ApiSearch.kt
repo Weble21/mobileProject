@@ -20,8 +20,8 @@ class ApiSearch {
     val listAdd = mutableListOf<String>()
     val listCategory = mutableListOf<String>()
     val listLoadAdd = mutableListOf<String>()
-    val listLon = mutableListOf<Int>()
-    val listLat = mutableListOf<Int>()
+    val listLon = mutableListOf<Double>()
+    val listLat = mutableListOf<Double>()
 
     fun main(currentLocation: String) {
 
@@ -120,17 +120,17 @@ class ApiSearch {
 
                 val address = item.getString("address")
                 if(address != "") {
-                    listAdd.add("지번 주소: $address")
+                    listAdd.add("$address")
                 }
 
                 val roadAddress = item.getString("roadAddress")
                 if(roadAddress != "") {
-                    listLoadAdd.add("도로명 주소: $roadAddress")
+                    listLoadAdd.add("$roadAddress")
                 }
 
-                val mapx = item.getInt("mapx")
+                val mapx = item.getDouble("mapx")
                 listLon.add(mapx)
-                val mapy = item.getInt("mapy")
+                val mapy = item.getDouble("mapy")
                 listLat.add(mapy)
 
 

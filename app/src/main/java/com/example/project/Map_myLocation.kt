@@ -12,9 +12,10 @@ import android.text.style.RelativeSizeSpan
 import android.text.style.StyleSpan
 import android.util.Log
 import android.view.Gravity
+import android.webkit.WebView
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import android.widget.TextView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.FragmentActivity
@@ -152,7 +153,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
                     )
                     params.setMargins(60, 10, 60, 40)
                     for (idx in 0..4) {
-                        val textView = TextView(this@Map_myLocation).apply {
+                        val textView = Button(this@Map_myLocation).apply {
                             setBackgroundResource(R.drawable.rounded_background)
                             layoutParams = params
                             setPadding(30, 40, 30, 10)
@@ -161,8 +162,8 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
 
                         val text = buildString {
                             append(" ${apiSearch.listTitle[idx]}\n")
-                            append("${apiSearch.listAdd[idx]}\n")
-                            append("${apiSearch.listLoadAdd[idx]}\n")
+                            append("지번 주소 : ${apiSearch.listAdd[idx]}\n")
+                            append("도로명 주소 : ${apiSearch.listLoadAdd[idx]}\n")
                             append("${apiSearch.listCategory[idx]}\n")
                         }
 
@@ -186,6 +187,18 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
 
                         textView.text = spannableString
 
+                        textView.setOnClickListener{
+                            val webPageView = WebView(this@Map_myLocation)
+                            Log.i("지번주소표시", "${apiSearch.listAdd[idx]}")
+                            webPageView.loadUrl("https://map.naver.com/p/search/" + "${apiSearch.listTitle[idx]}")
+
+                            val layout = LinearLayout(this@Map_myLocation)
+
+                            layout.addView(webPageView)
+
+                            setContentView(layout)
+                        }
+
                         listLayout.addView(textView)
                     }
                 }
@@ -199,7 +212,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
         val cameraPosition = CameraPosition(
             LatLng(37.6291, 126.0813),  //임의 위치 지정(서울시청 좌표)
-            17.5 // 줌 레벨
+            15.0 // 줌 레벨
         )
 
         naverMap.cameraPosition = cameraPosition
@@ -223,7 +236,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         val locationRequest = LocationRequest.create()
         locationRequest.run {
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-            interval = 2000
+            interval = 5000
         }
         locationCallback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -255,6 +268,7 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
         marker.height = 70
 
         marker.map = naverMap
+
         val cameraUpdate = CameraUpdate.scrollTo(myLocation)
         naverMap.moveCamera(cameraUpdate)
         naverMap.maxZoom = 20.0
