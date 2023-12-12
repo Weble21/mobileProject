@@ -3,7 +3,7 @@ package com.example.project.Models.shelter
 
 import com.google.gson.annotations.SerializedName
 
-data class Row(
+data class Row_shelter(
     @SerializedName("address")
     val address: String,
     @SerializedName("height")

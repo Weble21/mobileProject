@@ -3,7 +3,7 @@ package com.example.project.Models.shelter
 
 import com.google.gson.annotations.SerializedName
 
-data class shelterResponse(
+data class ShelterResponse(
     @SerializedName("TsunamiShelter")
     val tsunamiShelter: List<TsunamiShelter>
 )

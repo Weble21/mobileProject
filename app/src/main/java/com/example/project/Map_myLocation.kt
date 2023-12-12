@@ -189,7 +189,6 @@ class Map_myLocation : FragmentActivity(), OnMapReadyCallback {
 
                         textView.setOnClickListener{
                             val webPageView = WebView(this@Map_myLocation)
-                            Log.i("지번주소표시", "${apiSearch.listAdd[idx]}")
                             webPageView.loadUrl("https://map.naver.com/p/search/" + "${apiSearch.listTitle[idx]}")
 
                             val layout = LinearLayout(this@Map_myLocation)

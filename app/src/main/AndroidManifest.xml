@@ -39,6 +39,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Project"></activity>
         <activity
+            android:name=".Shelter_search"
+            android:exported="false"
+            android:label="Add shelter search"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Project"></activity>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -47,6 +53,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

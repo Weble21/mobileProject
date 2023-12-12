@@ -1,6 +1,6 @@
 package com.example.project.network
 
-import com.example.project.Models.shelter.shelterResponse
+import com.example.project.Models.shelter.ShelterResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -12,5 +12,5 @@ interface ShelterService {
         @Query("pageNo") pageNo : Int,
         @Query("numOfRows") numOfRows : Int,
         @Query("type") type : String,
-    ) : Call<shelterResponse>
+    ) : Call<ShelterResponse>
 }

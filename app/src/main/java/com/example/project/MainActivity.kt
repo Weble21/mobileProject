@@ -50,6 +50,12 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent);
         }
 
+        val headerSearch: ImageButton = findViewById(R.id.header_search)
+        headerSearch.setOnClickListener {
+            val intent = Intent(this, Shelter_search::class.java)
+            startActivity(intent);
+        }
+
         getEarthquakeAPI();
     }
 
