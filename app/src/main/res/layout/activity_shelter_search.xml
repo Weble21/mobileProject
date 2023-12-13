@@ -30,7 +30,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="21dp"
-            android:text="지진 해일 대피소 👀"
+            android:textStyle="bold"
+            android:text="지진해일 대피소 👀"
             android:textSize="34sp" />
 
     </LinearLayout>
@@ -38,25 +39,107 @@
         android:layout_width="match_parent"
         android:layout_height="8px"
         android:background="@color/wave"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="5dp"
         />
+
+    <LinearLayout
+        android:id="@+id/selectList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/selectArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역을 선택하세요"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"
+            />
+
+        <Button
+            android:id="@+id/btnGangwon"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:text="강원특별자치도"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/btnBusan"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="부산광역시" />
+
+        <Button
+            android:id="@+id/btnUlsan"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="울산광역시" />
+
+        <Button
+            android:id="@+id/btnGyeongsang"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="경상북도" />
+
+        <Button
+            android:id="@+id/btnJeonla"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="전라남도" />
+
+        <Button
+            android:id="@+id/btnGwangju"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="광주광역시" />
+    </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         >
+
         <LinearLayout
             android:id="@+id/messageList"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
+
             <TextView
                 android:id="@+id/message"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
             </TextView>
+
         </LinearLayout>
     </ScrollView>
 
