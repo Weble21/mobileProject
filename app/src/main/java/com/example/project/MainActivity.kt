@@ -141,22 +141,21 @@ class MainActivity : AppCompatActivity() {
                         val resultItems = resultBody?.items
                         val itemList: List<Item>? = resultItems?.item
 
-
                         var useIdx: Int = -1;
+
+                        val imgMap: ImageView = findViewById(R.id.imgMap)
+                        val tmFc: TextView = findViewById(R.id.tmFc)
+                        val loc: TextView = findViewById(R.id.loc)
+                        val mt: TextView = findViewById(R.id.mt)
+                        val inT: TextView = findViewById(R.id.inT)
+                        val msg: TextView = findViewById(R.id.msg)
+                        val earthquakeList: LinearLayout = findViewById(R.id.earthquakeList)
+                        val messageTitle: TextView = findViewById(R.id.messageTitle)
+                        val shelterTitle: TextView = findViewById(R.id.shelterTitle)
+                        val tipsNormal:LinearLayout = findViewById(R.id.tips_normal)
+                        val tipsEarth:LinearLayout = findViewById(R.id.tips_earth)
+
                         if(!itemList.isNullOrEmpty()) {
-                            val imgMap: ImageView = findViewById(R.id.imgMap)
-                            val tmFc: TextView = findViewById(R.id.tmFc)
-                            val loc: TextView = findViewById(R.id.loc)
-                            val mt: TextView = findViewById(R.id.mt)
-                            val inT: TextView = findViewById(R.id.inT)
-                            val msg: TextView = findViewById(R.id.msg)
-                            val earthquakeList: LinearLayout = findViewById(R.id.earthquakeList)
-                            val messageTitle: TextView = findViewById(R.id.messageTitle)
-                            val shelterTitle: TextView = findViewById(R.id.shelterTitle)
-                            val tipsNormal:LinearLayout = findViewById(R.id.tips_normal)
-                            val tipsEarth:LinearLayout = findViewById(R.id.tips_earth)
-
-
                             for(i in 0 until  itemList.size) {
                                 val currentItem: Item = itemList[i]
                                 if(currentItem.fcTp == 3) {
@@ -164,12 +163,11 @@ class MainActivity : AppCompatActivity() {
                                     break;
                                 }
                             }
+                            val useItem: Item = itemList[useIdx]
+                            val imgUrl: String = useItem.img
+                            val formattedtmFc = convertDateTimeFormat(useItem.tmFc)
                             //지진 발생 여부에 따른 결과
                             if(useIdx != -1) {
-                                val useItem: Item = itemList[useIdx]
-                                val imgUrl: String = useItem.img
-                                val formattedtmFc = convertDateTimeFormat(useItem.tmFc)
-
                                 earthquakeList.visibility = View.VISIBLE
                                 imgMap.scaleType = ImageView.ScaleType.MATRIX
                                 Glide.with(this@MainActivity).load(imgUrl).into(imgMap)
@@ -195,12 +193,16 @@ class MainActivity : AppCompatActivity() {
                                 tipsNormal.visibility = View.VISIBLE
                             }
                         } else {
-                            loading.text = "에러 발생! 불러온 정보가 없습니다!"
-                            Toast.makeText(
-                                this@MainActivity,
-                                "정보가 없습니다!",
-                                Toast.LENGTH_SHORT
-                            ).show()
+
+                            imgMap.setImageResource(R.drawable.no_event)
+                            tmFc.visibility = View.INVISIBLE
+                            loc.visibility = View.INVISIBLE
+                            mt.visibility = View.INVISIBLE
+                            inT.visibility = View.INVISIBLE
+                            msg.visibility = View.INVISIBLE
+                            messageTitle.visibility = View.VISIBLE
+                            tipsNormal.visibility = View.VISIBLE
+
                         }
 
 
@@ -211,6 +213,7 @@ class MainActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<EarthquakeResponse>, t: Throwable) {
                     loading.text = "에러 발생! 정보를 불러올 수 없습니다!"
+                    loading.visibility = View.VISIBLE
                     Log.e("err", "errrr")
                     Toast.makeText(
                         this@MainActivity,

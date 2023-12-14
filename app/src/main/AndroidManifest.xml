@@ -33,6 +33,12 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Project"></activity>
         <activity
+            android:name=".Shelter_list"
+            android:exported="false"
+            android:label="Add shelter list"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Project"></activity>
+        <activity
             android:name=".Map_myLocation"
             android:exported="false"
             android:label="Add Map_myLocation"
