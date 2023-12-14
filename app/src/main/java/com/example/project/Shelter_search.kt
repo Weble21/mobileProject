@@ -27,11 +27,10 @@ class Shelter_search : AppCompatActivity() {
             val intent = Intent(this, Shelter_list::class.java)
             intent.putExtra("selectedArea", area)
             startActivity(intent)
-
         }
         val btnBusan: Button = findViewById(R.id.btnBusan)
         btnBusan.setOnClickListener {
-            Log.i("selectArea", "강원특별자치도")
+            Log.i("selectArea", "부산광역시")
             area = "부산광역시"
             val intent = Intent(this, Shelter_list::class.java)
             intent.putExtra("selectedArea", area)

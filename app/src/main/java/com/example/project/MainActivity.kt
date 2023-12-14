@@ -108,6 +108,12 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
 
+            val yesterDate = getYesterDate();
+            val currentDate = getCurrentDate();
+
+            Log.i("yesterDate:", "$yesterDate")
+            Log.i("currentDate:", "$currentDate")
+
             val retrofit : Retrofit = Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -115,12 +121,6 @@ class MainActivity : AppCompatActivity() {
 
             val service : EarthquakeService = retrofit
                 .create<EarthquakeService>(EarthquakeService::class.java)
-
-            val yesterDate = getYesterDate();
-            val currentDate = getCurrentDate();
-
-            Log.i("yesterDate:", "$yesterDate")
-            Log.i("currentDate:", "$currentDate")
 
             val listCall : Call<EarthquakeResponse> = service.getMessage(
                 Constants.APP_ID, 1, 10, "JSON", yesterDate, currentDate

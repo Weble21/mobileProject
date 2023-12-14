@@ -3,7 +3,6 @@ package com.example.project
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
-import android.view.View
 import android.webkit.WebView
 import android.widget.Button
 import android.widget.ImageButton
@@ -82,7 +81,11 @@ class Shelter_list: AppCompatActivity() {
                                 allMessages.addAll(rowShelterList)
                                 val messageListLinearLayout: LinearLayout =
                                     findViewById(R.id.messageList)
-
+                                val params = LinearLayout.LayoutParams(
+                                    LinearLayout.LayoutParams.MATCH_PARENT,
+                                    LinearLayout.LayoutParams.WRAP_CONTENT
+                                )
+                                params.setMargins(60, 0, 60, 50)
                                 for (i in 1 until rowShelterList.size) {
                                     val currentRow: Row_shelter = rowShelterList[i]
                                     if (currentRow.sidoName == area) {
@@ -94,11 +97,6 @@ class Shelter_list: AppCompatActivity() {
                                                     "대피소 분류: ${currentRow.shelDivType}"
 
                                         //View 추가
-                                        val params = LinearLayout.LayoutParams(
-                                            LinearLayout.LayoutParams.MATCH_PARENT,
-                                            LinearLayout.LayoutParams.WRAP_CONTENT
-                                        )
-                                        params.setMargins(60, 0, 60, 50)
                                         val textView = Button(this@Shelter_list).apply {
                                             setBackgroundResource(R.drawable.rounded_background)
                                             layoutParams = params
@@ -106,9 +104,10 @@ class Shelter_list: AppCompatActivity() {
                                             gravity = Gravity.CENTER_VERTICAL
                                         }
                                         textView.text = currentRowCreateMsg
-                                        messageListLinearLayout.addView(textView)
-                                        messageListLinearLayout.visibility = View.VISIBLE
+
                                         textView.setOnClickListener {
+                                            val listLayout: LinearLayout = findViewById(R.id.list)
+                                            listLayout.removeAllViews()
                                             val webPageView = WebView(this@Shelter_list)
                                             webPageView.loadUrl("https://map.naver.com/p/search/" + "${currentRow.address}")
 
@@ -118,6 +117,7 @@ class Shelter_list: AppCompatActivity() {
 
                                             setContentView(layout)
                                         }
+                                        messageListLinearLayout.addView(textView)
 
                                     }
                                 }
