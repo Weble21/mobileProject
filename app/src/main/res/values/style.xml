@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Custom style with margin, background color, and rounded corners -->
+    <style name="CustomStyle">
+        <item name="android:layout_margin">16dp</item>
+        <item name="android:background">@drawable/rounded_background</item>
+        <item name="android:textColor">@color/headerBackground</item>
+    </style>
+</resources>

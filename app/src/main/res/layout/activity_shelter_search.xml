@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backBrown"
+    android:orientation="vertical"
+    app:layoutDescription="@xml/activity_shelter_search_scene">
+
+    <LinearLayout
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
+        android:background="@color/backBrown"
+        android:gravity="center_vertical"
+        android:paddingTop="15dp"
+        android:paddingBottom="10dp">
+
+        <ImageButton
+            android:id="@+id/backBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:background="@color/backBrown"
+            android:src="@drawable/backbtn" />
+
+        <TextView
+            android:id="@+id/messageText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="21dp"
+            android:textStyle="bold"
+            android:text="지진해일 대피소 👀"
+            android:textSize="34sp" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8px"
+        android:background="@color/wave"
+        android:layout_marginBottom="5dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/selectList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|center_horizontal"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/selectArea"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="지역을 선택하세요"
+            android:layout_gravity="center"
+            android:textSize="24sp"
+            android:layout_marginTop="25dp"
+            />
+
+        <Button
+            android:id="@+id/btnGangwon"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:text="강원특별자치도"
+            android:textSize="21sp" />
+
+        <Button
+            android:id="@+id/btnBusan"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="부산광역시" />
+
+        <Button
+            android:id="@+id/btnUlsan"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="울산광역시" />
+
+        <Button
+            android:id="@+id/btnGyeongsang"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="경상북도" />
+
+        <Button
+            android:id="@+id/btnJeonla"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="전라남도" />
+
+        <Button
+            android:id="@+id/btnGwangju"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="21dp"
+            android:padding="14dp"
+            android:textSize="21sp"
+            android:text="광주광역시" />
+    </LinearLayout>
+
+</LinearLayout>
